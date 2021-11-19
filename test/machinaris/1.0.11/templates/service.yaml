@@ -4,4 +4,15 @@
 {{ $params := . }}
 {{ $_ := set $params "commonService" (dict "ports" $ports "type" "NodePort" ) }}
 {{ include "common.classes.service" $params }}
-{{  }}
+---
+{{ $this := . }}
+{{ range $coin := $this.Values.coins }}
+{{ $_ := set $this "common" (dict "nameSuffix" $coin.name) }}
+{{ $ports := list }}
+{{ range $port := $coin.ports }}
+{{ $ports = mustAppend $ports (dict "name" (printf "%v-%v" $coin.name $port.containerPort) "port" $port.containerPort "targetPort" $port.containerPort) }}
+{{ end }}
+{{ $_ := set $this "commonService" (dict "ports" $ports "type" "ClusterIP" ) }}
+{{ include "common.classes.service" $this }}
+---
+{{ end }}
