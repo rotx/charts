@@ -1,0 +1,32 @@
+{{- if .Values.portForwardingList }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ix-chart.fullname" . }}
+  labels:
+    {{- include "ix-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.serviceType }}
+  {{- if eq .Values.serviceType "externalName" }}
+  externalName: {{ .Values.externalName }}
+  {{- end }}
+  {{- if and .Values.externalTrafficPolicy (ne .Values.serviceType "ClusterIP") }}
+  externalTrafficPolicy: {{ .Values.externalTrafficPolicy }}
+  {{- end }}
+  ports:
+    {{- range $index, $config := .Values.portForwardingList }}
+    - port: {{ $config.containerPort }}
+      targetPort: {{ $config.containerPort }}
+      {{- if $config.nodePort }}
+      nodePort: {{ $config.nodePort }}
+      {{- end }}
+      protocol: {{ $config.protocol }}
+      {{- if $config.nodePort }}
+      name: ix-{{ $.Release.Name }}-{{ $config.nodePort }}-{{ $index }}
+      {{- else }}
+      name: ix-{{ $.Release.Name }}-{{ $index }}
+      {{- end }}
+    {{- end }}
+  selector:
+    {{- include "ix-chart.selectorLabels" . | nindent 4 }}
+{{- end }}
