@@ -11,7 +11,9 @@ appVolumeMounts:
     mountPath: /plots
 coins:
  - name: cactus
-   apiPort: 8936
+   apiPort:
+    nodePort: 90001
+    targetPort: 8936
    ports:
     - protocol: TCP
       containerPort: 8936
@@ -20,7 +22,9 @@ coins:
     - protocol: TCP
       containerPort: 11447
  - name: chives
-   apiPort: 8931
+   apiPort:
+    nodePort: 90002
+    targetPort: 8931
    ports:
     - protocol: TCP
       containerPort: 8931
@@ -29,7 +33,9 @@ coins:
     - protocol: TCP
       containerPort: 9647
  - name: flax
-   apiPort: 8928
+   apiPort:
+    nodePort: 90003
+    targetPort: 8928
    ports:
     - protocol: TCP
       containerPort: 8928
@@ -38,7 +44,9 @@ coins:
     - protocol: TCP
       containerPort: 6885
  - name: flora
-   apiPort: 8936
+   apiPort:
+    nodePort: 90004
+    targetPort: 8932
    ports:
     - protocol: TCP
       containerPort: 8932
@@ -47,7 +55,9 @@ coins:
     - protocol: TCP
       containerPort: 18647
  - name: hddcoin
-   apiPort: 8936
+   apiPort:
+    nodePort: 90005
+    targetPort: 8930
    ports:
     - protocol: TCP
       containerPort: 8930
@@ -56,7 +66,9 @@ coins:
     - protocol: TCP
       containerPort: 28447
  - name: nchain
-   apiPort: 8936
+   apiPort:
+    nodePort: 90006
+    targetPort: 8929
    ports:
     - protocol: TCP
       containerPort: 8929
@@ -65,7 +77,9 @@ coins:
     - protocol: TCP
       containerPort: 38447
  - name: stacoin
-   apiPort: 8936
+   apiPort:
+    nodePort: 90007
+    targetPort: 8934
    ports:
     - protocol: TCP
       containerPort: 8934
@@ -74,7 +88,9 @@ coins:
     - protocol: TCP
       containerPort: 1692
  - name: stor
-   apiPort: 8936
+   apiPort:
+    nodePort: 90008
+    targetPort: 8935
    ports:
     - protocol: TCP
       containerPort: 8935

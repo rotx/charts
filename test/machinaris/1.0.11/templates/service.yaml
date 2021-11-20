@@ -7,12 +7,18 @@
 ---
 {{ $this := . }}
 {{ range $coin := $this.Values.coins }}
-{{ $_ := set $this "common" (dict "nameSuffix" $coin.name) }}
 {{ $ports := list }}
+{{ $_ := set $this "common" (dict "nameSuffix" $coin.name) }}
 {{ range $port := $coin.ports }}
 {{ $ports = mustAppend $ports (dict "name" (printf "%v-%v" $coin.name $port.containerPort) "port" $port.containerPort "targetPort" $port.containerPort) }}
 {{ end }}
 {{ $_ := set $this "commonService" (dict "ports" $ports "type" "ClusterIP" ) }}
+{{ include "common.classes.service" $this }}
+---
+{{ $ports := list }}
+{{ $_ := set $this "common" (dict "nameSuffix" $coin.name) }}
+{{ $ports = mustAppend $ports (dict "name" $coin.name "port" $coin.apiPort.nodePort "nodePort" $coin.apiPort.nodePort "targetPort" $coin.apiPort.targetPort) }}
+{{ $_ := set $this "commonService" (dict "ports" $ports "type" "NodePort" "nameSuffix" "api") }}
 {{ include "common.classes.service" $this }}
 ---
 {{ end }}

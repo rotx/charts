@@ -36,7 +36,7 @@ spec:
           {{ $envList = mustAppend $envList (dict "name" "TZ" "value" $ref.Values.timezone) }}
           {{ $envList = mustAppend $envList (dict "name" "worker_address" "value" $ref.Values.nodeIP) }}
           {{ $envList = mustAppend $envList (dict "name" "controller_host" "value" $ref.Values.nodeIP) }}
-          {{ $envList = mustAppend $envList (dict "name" "worker_api_port" "value" $coin.apiPort) }}
+          {{ $envList = mustAppend $envList (dict "name" "worker_api_port" "value" $coin.apiPort.targetPort) }}
           {{ $envList = mustAppend $envList (dict "name" "blockchains" "value" $coin.name) }}
           {{ $envList = mustAppend $envList (dict "name" "plots_dir" "value" $ref.Values.appVolumeMounts.plots.mountPath) }}
           {{ $envList = mustAppend $envList (dict "name" "mode" "value" "fullnode") }}
