@@ -9,6 +9,8 @@ groups:
     description: "Set the environment that will be visible to the container"
   - name: "Resource Limits"
     description: "Set CPU/memory limits for Kubernetes Pod"
+  - name: "Configure Coins"
+    description: "Configure different coins"
 
 portals:
   web_portal:
@@ -188,3 +190,20 @@ questions:
       type: string
       show_if: [["enableResourceLimits", "=", true]]
       valid_chars: "^([+-]?[0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$"
+
+  - variable: enableStor
+    label: "Enable Stor"
+    group: "Configure Coins"
+    schema:
+      type: boolean
+      default: true
+  - variable: coins.7.apiPort.nodePort
+    label: "Machinaris-Stor API Port"
+    group: "Configure Coins"
+    description: "API Port for Machinaris-Stor"
+    schema:
+      type: int
+      min: 9000
+      max: 65535
+      default: 9004
+      show_if: [["enableStor", "=", true]]
